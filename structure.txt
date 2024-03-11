@@ -1,0 +1,41 @@
+training-app-backend/
+│
+├── config/
+│   ├── db.js            # Database configuration
+│   └── config.js        # Other configuration variables
+│
+├── controllers/
+│   ├── authController.js  # Controller for authentication
+│   ├── exerciseController.js # Controller for exercises
+│   └── userController.js # Controller for user management
+│
+├── models/
+│   ├── Exercise.js      # Model for Exercise
+│   ├── User.js          # Model for User
+│   └── ...              # Other models
+│
+├── routes/
+│   ├── authRoutes.js    # Routes for authentication
+│   ├── exerciseRoutes.js # Routes for exercises
+│   └── userRoutes.js    # Routes for user management
+│
+├── services/
+│   ├── authService.js   # Service for authentication
+│   ├── exerciseService.js # Service for exercises
+│   └── userService.js   # Service for user management
+│
+├── middlewares/         # Custom middleware functions
+│
+├── utils/               # Utility functions
+│
+├── app.js               # Entry point of the application
+│
+└── package.json         # npm package file
+config: Contains configuration files for your application, such as database configuration and other environment variables.
+controllers: Contains controller functions responsible for handling HTTP requests, interacting with services, and returning responses.
+models: Contains schema definitions for your application's data models, using an ORM like Mongoose for MongoDB.
+routes: Contains route definitions for your API endpoints, mapping URLs to controller functions.
+services: Contains service functions responsible for interacting with the database and implementing business logic.
+middlewares: Contains custom middleware functions that intercept incoming requests and perform actions before passing them to route handlers.
+utils: Contains utility functions used across your application.
+app.js: The entry point of your application where you configure middleware, routes, and start the server.
