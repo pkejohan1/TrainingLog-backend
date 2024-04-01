@@ -17,7 +17,7 @@ export default new EntitySchema({
     },
     name: {
       type: "text",
-      nullable: false,
+      nullable: true,
     },
     date: {
       type: "timestamp without time zone",

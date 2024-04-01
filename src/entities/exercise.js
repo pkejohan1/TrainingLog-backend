@@ -1,6 +1,5 @@
 // Exercise Entity Schema
 import { EntitySchema } from "typeorm";
-import Trainingsession from "./trainingsession.js";
 
 export default new EntitySchema({
   name: "Exercise",
@@ -23,7 +22,7 @@ export default new EntitySchema({
   relations: {
     trainingsession: {
       type: "many-to-one",
-      target: Trainingsession,
+      target: "Trainingsession",
       joinColumn: {
         name: "trainingsession_id",
         referencedColumnName: "id",

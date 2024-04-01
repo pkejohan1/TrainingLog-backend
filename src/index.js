@@ -12,7 +12,10 @@ const port = 3000;
 // Middleware
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(cors());
+app.use(cors({
+  origin: 'http://localhost:3001',
+  credentials: true
+}));
 //endpoints
 //app.use("/api/users", usersRouter);
 app.use("/api/auth", authRouter);
