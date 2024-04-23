@@ -1,12 +1,36 @@
-// In your backend server routes file (e.g., routes/trainingsession.js)
-
 import express from "express";
 import { dataSource } from "../db/db.js";
 import Trainingsession from "../entities/trainingsession.js";
 import Exercise from "../entities/exercise.js";
 import Set from "../entities/set.js";
+import { verifyToken } from "../middleware/authController.js"
 
 const router = express.Router();
+
+// GET route for retrieving a training session
+router.get('/:sessionId', verifyToken, async (req, res) => {
+  try {
+    // Extract user ID from JWT token
+    const userId = req.user.userId;
+
+    // Retrieve session ID from request parameters
+    const sessionId = req.params.sessionId;
+
+    // Query the database to retrieve the training session
+    const session = await Trainingsession.findOne({ where: { id: sessionId, user_id: userId } });
+
+    // Check if session exists and belongs to the current user
+    if (!session) {
+      return res.status(404).json({ message: 'Training session not found or unauthorized' });
+    }
+
+    // Return the session data
+    res.json(session);
+  } catch (error) {
+    console.error('Error retrieving training session:', error);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+});
 
 // GET /api/trainingsession/user/:userId
 router.get("/user/:userId", async (req, res) => {
