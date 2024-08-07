@@ -17,7 +17,9 @@ router.get('/:sessionId', verifyToken, async (req, res) => {
     const sessionId = req.params.sessionId;
     console.log("userid: "+userId+ " sessionId: "+ sessionId);
     // Query the database to retrieve the training session
-    const session = await dataSource.getRepository(Trainingsession).findOne({ where: { id: sessionId}});
+    const session = await dataSource.getRepository(Trainingsession).findOne({ where: { id: sessionId},
+      relations: ["exercises"],
+    });
 
     // Check if session exists and belongs to the current user
     if (!session) {
