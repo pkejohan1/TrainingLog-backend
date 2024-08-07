@@ -17,9 +17,14 @@ router.get('/:sessionId', verifyToken, async (req, res) => {
     const sessionId = req.params.sessionId;
     console.log("userid: "+userId+ " sessionId: "+ sessionId);
     // Query the database to retrieve the training session
-    const session = await dataSource.getRepository(Trainingsession).findOne({ where: { id: sessionId},
-      relations: ["exercises"],
-    });
+    const session = await dataSource
+      .getRepository(Trainingsession)
+      .createQueryBuilder("trainingsession")
+      .leftJoinAndSelect("trainingsession.exercises", "exercise")
+      .leftJoinAndSelect("exercise.sets", "set")
+      .where("trainingsession.id = :sessionId", { sessionId })
+      .andWhere("trainingsession.user_id = :userId", { userId })
+      .getOne();
 
     // Check if session exists and belongs to the current user
     if (!session) {
